@@ -1,4 +1,4 @@
-# Vidrio & Cristal - Sistema Web Completo
+# Innox Glass EC - Sistema Web Completo
 
 Sistema web completo para empresa de vidrio templado, aluminio y acero inoxidable.
 
