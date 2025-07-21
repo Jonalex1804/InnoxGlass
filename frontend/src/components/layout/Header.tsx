@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [imageError, setImageError] = useState(false)
   const location = useLocation()
 
   const isActive = (path: string) => {
@@ -20,24 +21,35 @@ const Header = () => {
     { path: "/contacto", label: "Contacto" },
   ]
 
+  const handleImageError = () => {
+    setImageError(true)
+    console.error("Error cargando el logo desde /logoinn.png")
+  }
+
+  const handleImageLoad = () => {
+    console.log("Logo cargado exitosamente")
+    setImageError(false)
+  }
+
   return (
     <header className="bg-white shadow-sm border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* LOGO */}
           <Link to="/" className="flex items-center">
-            <img
-              src="/images/logo.jpeg" 
-              alt="INNOX GLASS EC"
-              className="h-12 w-auto object-contain"
-              onLoad={() => console.log("LOGO CARGADO EXITOSAMENTE desde /images/logo.jpeg")}
-              onError={(e) => {
-                console.error(
-                  "ERROR: No se pudo cargar el logo desde /images/logo.jpeg. Verifique la ruta y el nombre del archivo.",
-                  e,
-                )
-              }}
-            />
+            {!imageError ? (
+              <img
+                src="/logoinn.png"
+                alt="INNOX GLASS EC - Especialistas en vidrio templado"
+                className="h-12 w-auto max-w-none"
+                onError={handleImageError}
+                onLoad={handleImageLoad}
+                style={{ display: "block" }}
+              />
+            ) : (
+              <div className="h-12 flex items-center px-4 bg-red-100 rounded border-2 border-red-300">
+                <span className="text-red-600 text-sm font-medium">Logo no encontrado: /logoinn.png</span>
+              </div>
+            )}
           </Link>
 
           {/* Desktop Navigation */}
@@ -57,7 +69,6 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
           <Link
             to="/contacto"
             className="hidden md:block bg-gradient-to-r from-[#33cabe] to-[#3380be] hover:from-[#33cabe]/90 hover:to-[#3380be]/90 text-white px-6 py-2 rounded-lg font-medium transition-all"
@@ -66,7 +77,7 @@ const Header = () => {
           </Link>
 
           {/* Mobile menu button */}
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2" aria-label="Abrir menú">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2">
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
@@ -80,7 +91,7 @@ const Header = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-left font-medium transition-colors py-2 px-4 rounded-lg ${
+                  className={`text-left font-medium transition-colors ${
                     isActive(item.path) ? "text-[#33cabe]" : "text-gray-700 hover:text-[#33cabe]"
                   }`}
                 >

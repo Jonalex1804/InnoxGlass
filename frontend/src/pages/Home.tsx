@@ -50,7 +50,7 @@ const Home = () => {
       id: "pasamanos",
       name: "Pasamanos Acero Inoxidable",
       description: "Pasamanos elegantes y duraderos en acero inoxidable",
-      image: "/images/cortina.jpg",
+      image: "/placeholder.svg?height=300&width=400&text=Pasamanos+Acero",
     },
   ]
 
