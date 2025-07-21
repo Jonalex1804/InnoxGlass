@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #33cabe;
+  --secondary: #3380be;
+}
+
+@layer base {
+  * {
+    @apply border-border; /* Ahora esta clase existe */
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .border-border {
+    border-color: theme('colors.border');
+  }
+}
